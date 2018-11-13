@@ -2,12 +2,22 @@
 % Please edit documentation in R/bulk_conductance.R
 \name{aerodynamic_conductance_withcanopy_Thom1975}
 \alias{aerodynamic_conductance_withcanopy_Thom1975}
-\title{combined aerodynamic conductance after Thom 1975 taken from De Kauwe 2017 BG , eq. 3
-first term is the turbulent aerodynamic resistance the second term is the canopy boundary layer component}
+\title{Empirical estimate of the aerodynamic conductance for heat from wind speed and friction velocity}
 \usage{
 aerodynamic_conductance_withcanopy_Thom1975(ustar, u)
 }
+\arguments{
+\item{ustar}{friction velocity in m/s}
+
+\item{u}{horizontal wind speed in m/s}
+}
+\value{
+aerodynamic conductance in m/s
+}
 \description{
-combined aerodynamic conductance after Thom 1975 taken from De Kauwe 2017 BG , eq. 3
+Combined aerodynamic conductance after Thom 1975 taken from De Kauwe 2017 BG , eq. 3
 first term is the turbulent aerodynamic resistance the second term is the canopy boundary layer component
+}
+\author{
+Maik Renner, mrenner@bgc-jena.mpg.de
 }

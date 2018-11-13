@@ -5,13 +5,16 @@
 #' @version 1.00 2018-09-21 copied from "summary_fun.R"
 #' @version 1.01 2018-09-21 improve documentation
 
-#' @import data.table
-#' @export
+#' @export meana
+#' @export meann
 
 #' @version 0.1 2017-09-22 added weighted unbiased variance, weighted.var()
 
 meana <- function(x,na.percentage = 0.5,FUN=mean) {
   #' a function to aggregate data but set a limit to the data at least available
+  #' 
+  #' @param na.percentage maximal ratio of missing values 
+  #' @author Maik Renner mrenner@bgc-jena.mpg.de
   if (sum(is.na(x))/length(x) <= na.percentage) {
     #     eval(parse(text = paste(FUN,"(x,na.rm = TRUE)",sep="")))
     eval(FUN(x,na.rm = TRUE))
@@ -32,6 +35,7 @@ meann = function(x,nmin,...) {
 #' @param nmin minimum of data points accepted to calculate the mean (integer)
 #' @param ... further arguments to mean() remember especially to set na.rm=TRUE
 #' @version 20141208 add non-missing data lower nmin
+#' @author Maik Renner mrenner@bgc-jena.mpg.de
 #' @examples
 #' x = 1:10
 #' meann(x,nmin = 11)
@@ -57,9 +61,12 @@ anomean = function(x, ...) x - mean(x,...)
 
 
 summaryfun_nmin = function(x,nmin,FUN = mean,...) {
-#' a summary function applied to a vector which requires a minimum of data points nmin; needed if missing data is missing :)
+#' a summary function applied to a vector which requires a minimum of data points nmin
+#' 
+#' needed if missing data is missing :)
 #' add non-missing data lower nmin @20141208
 #' @version 2015-09-16
+#' @author Maik Renner mrenner@bgc-jena.mpg.de
   n = length(x)
   nnona = sum(!is.na(x))
  if (n < nmin | nnona < nmin) out = NA

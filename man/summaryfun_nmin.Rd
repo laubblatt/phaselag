@@ -2,12 +2,14 @@
 % Please edit documentation in R/utils.aggregate.R
 \name{summaryfun_nmin}
 \alias{summaryfun_nmin}
-\title{a summary function applied to a vector which requires a minimum of data points nmin; needed if missing data is missing :)
-add non-missing data lower nmin @20141208}
+\title{a summary function applied to a vector which requires a minimum of data points nmin}
 \usage{
 summaryfun_nmin(x, nmin, FUN = mean, ...)
 }
 \description{
-a summary function applied to a vector which requires a minimum of data points nmin; needed if missing data is missing :)
+needed if missing data is missing :)
 add non-missing data lower nmin @20141208
+}
+\author{
+Maik Renner mrenner@bgc-jena.mpg.de
 }

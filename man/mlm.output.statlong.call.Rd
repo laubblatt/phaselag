@@ -2,8 +2,7 @@
 % Please edit documentation in R/data.table.regression.utils.R
 \name{mlm.output.statlong.call}
 \alias{mlm.output.statlong.call}
-\title{sucessfull error handling for errors on function calls when groups are empty
-weights and other lm arguments can be given by ...}
+\title{Call a linear regression model and reorganize its output}
 \usage{
 mlm.output.statlong.call(mula, data, ...)
 }
@@ -12,14 +11,13 @@ mlm.output.statlong.call(mula, data, ...)
 
 \item{data}{the data table with the column names}
 
-\item{...}{additional arguments to call lm() such as weights}
+\item{...}{additional arguments to call lm() such as weights and other lm arguments}
 }
 \value{
 a data.table with columns statistic and value
 }
 \description{
 sucessfull error handling for errors on function calls when groups are empty
-weights and other lm arguments can be given by ...
 }
 \examples{
 DT = as.data.table(mtcars)
@@ -28,4 +26,7 @@ DT[, mlm.output.statlong.call(mula = "mpg ~ drat + gear", data = .SD) , by = lis
 DT[, mlm.output.statlong.call(mula = "mpg ~ drat + gear + bogus", data = .SD) , by = list(am) ]
 # use ... to weight the regression
 DT[, mlm.output.statlong.call(mula = "mpg ~ drat + gear", data = .SD, weight = cyl) , by = list(am) ]
+}
+\author{
+Maik Renner, mrenner@bgc-jena.mpg.de
 }

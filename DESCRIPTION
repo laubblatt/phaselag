@@ -1,10 +1,21 @@
 Package: phaselag
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2018-09-21
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Calculate the phase lag between two variables
+Version: 0.1.2
+Date: 2018-11-13
+Author: Maik Renner
+Maintainer: Maik Renner <mrenner@bgc-jena.mpg.de>
+Description: Calculate the phase lag between two time series in time units, 
+    extending the Camuffo-Bernardi (1980) regression model with a harmonic
+    analysis.
+    The functions accompany a scientific manuscript
+    submitted to Hydrology and Earth System Sciences
+    as Renner et al., 2018 "Estimating and understanding model bias
+    in simulating the diurnal cycle of evapotranspiration:
+    a case study in Luxembourg
+    It also contains some statistical utilities 
+    as well as simple meteorological functions.
+License: GPL (>= 2) 
 RoxygenNote: 6.1.0
+Imports:
+    data.table

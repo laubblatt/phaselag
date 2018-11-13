@@ -29,3 +29,6 @@ meann(x,2,na.rm=TRUE)
 meann(x,3,na.rm=TRUE)
 sum(!is.na(x))
 }
+\author{
+Maik Renner mrenner@bgc-jena.mpg.de
+}

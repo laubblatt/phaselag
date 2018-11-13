@@ -19,5 +19,11 @@ phaselag_time(slope1, slope2, nday, timeunitperday)
 phase lag in time units between two variables.
 }
 \description{
-Calculate the phase lag in time units
+Helper function which is called by camuffo_phaselag_time()
+}
+\references{
+please cite the following paper when using this code
+}
+\seealso{
+camuffo_phaselag_time
 }

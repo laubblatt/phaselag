@@ -34,10 +34,38 @@ phaselag_time() to estimate the time difference.
 This function then also returns the regression statistics using the
 function mlm.output.statlong()
 }
+\examples{
+# example with 1h timesteps in minutes as unit
+library(data.table)
+nday = 24
+timeunitperday = 24 * 60#' time unit minutes
+dt = data.table(time = seq(0.5,timeunitperday, by = timeunitperday/nday))
+dt[ , Date := as.IDate("2007-07-07")]
+dt[ , ptime := time * 2* pi / timeunitperday]
+dt[ , ptimecos := cos(ptime  - pi) ]
+dt[ , Rsd := ifelse(ptimecos<0,0,800 * ptimecos)]
+dt
+dt[ , LEnolag :=  Rsd/2 + 30 * rnorm(1) , by = time ]
+# create a series with a lag of one hour
+(lagLE = 60 *  2 * pi / timeunitperday)
+dt[ , ptimecos_lag1h := cos(ptime  - pi - lagLE)  ]
+dt[ , LElag1h :=  ifelse(ptimecos_lag1h<0,0, 400 * ptimecos_lag1h ) + 30 * rnorm(1)  , by = time ]
+# estimate the first order difference from the reference series (Rsd)
+dt[ ,dRsd := c(NA, diff(Rsd))]
+# now call the function camuffo_phaselag_time() 
+dt[ , camuffo_phaselag_time(Y = LElag1h, X = Rsd, dX = dRsd, dt = .SD, nday = nday, timeunitperday = timeunitperday)]
+dt[ , camuffo_phaselag_time(Y = LEnolag, X = Rsd, dX = rep(NA,24), dt = .SD, nday = nday, timeunitperday = timeunitperday)]
+# plot stuff   
+plot(Rsd ~ time, data = dt)
+lines(LEnolag ~ time, data = dt, col = 3)
+lines(LElag1h ~ time, data = dt, col = 4)
+plot(LEnolag ~ Rsd, data = dt, col = 3, type = "b")
+lines(LElag1h ~ Rsd, data = dt, col = 4, type = "b", pch = 0)
+}
 \references{
 please cite the following paper when using this code
 Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., https://doi.org/10.5194/hess-2018-310, in review, 2018.
 }
 \seealso{
-[phaselag_time()]
+[phaselag_time()] for the core function
 }

@@ -7,6 +7,23 @@
 aerodynamic_conductance_BM2013(ustar, u, karman = 0.4, Sc = 1,
   Pr = 1)
 }
+\arguments{
+\item{ustar}{friction velocity in m/s}
+
+\item{u}{horizontal wind speed in m/s}
+
+\item{karman}{Von Karmans' constant}
+
+\item{Sc}{Schmidt number}
+
+\item{Pr}{Prandtl number}
+}
+\value{
+aerodynamic conductance in m/s
+}
 \description{
 Calculate different bulk conductance estimates
+}
+\author{
+Maik Renner, mrenner@bgc-jena.mpg.de
 }

@@ -6,9 +6,14 @@
 \usage{
 meana(x, na.percentage = 0.5, FUN = mean)
 }
+\arguments{
+\item{na.percentage}{maximal ratio of missing values}
+}
 \description{
 collection of specific useful summary functions
 }
 \author{
+Maik Renner mrenner@bgc-jena.mpg.de
+
 Maik Renner mrenner@bgc-jena.mpg.de
 }

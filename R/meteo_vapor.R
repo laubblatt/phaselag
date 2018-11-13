@@ -2,7 +2,8 @@
 
 #' @filename meteo_vapor.R
 #' @author Maik Renner mrenner@bgc-jena.mpg.de
-#' @export
+#' @export Magnus_Alduchov1996Improved
+#' @export Magnus_Alduchov1996Improved_slope_sat
 
 #' @version 0.10 2018-09-19 adding the Alduchov and Eskridge (1996) parameters for the Magnus form
 #' @version 0.10 2018-09-19 adding an ice switch, be careful when vectorization is used for param ice
@@ -45,6 +46,7 @@ Magnus_Alduchov1996Improved_slope_sat <- function(air_temp,  c2 = 17.625, c3 = 2
   #'  when an ice surface is there and T < 0 (default ice = FALSE).
   #' @return slope of the saturation water vapor pressure curve hPa K-1.
   #' @seealso [Magnus_Alduchov1996Improved]
+ 
   s_airtemp <- c2 * c3 * MAGNUS(air_temp) / (c3 + air_temp)^2
   if (ice == TRUE) {
     c1 = 6.1121
