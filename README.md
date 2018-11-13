@@ -10,3 +10,7 @@ This repository provides an implemenation in R language as a R package.
     a case study in Luxembourg" available at https://www.hydrol-earth-syst-sci-discuss.net/hess-2018-310/ .
     It also contains some statistical utilities 
     as well as simple meteorological functions.
+    
+To install the R package use:
+library(devtools)
+install_github("laubblatt/phaselag")
