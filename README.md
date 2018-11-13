@@ -1,8 +1,9 @@
 Calculate the phase lag between two time series in time units, 
     extending the Camuffo-Bernardi (1980) regression model with a harmonic
     analysis.
-    This provides an implemenation in R as a R package.  
-    The functions accompany a scientific manuscript
+    
+This repository provides an implemenation in R language as a R package.  
+    The package accompanies a scientific manuscript
     submitted to Hydrology and Earth System Sciences
     as Renner et al., 2018 "Estimating and understanding model bias
     in simulating the diurnal cycle of evapotranspiration:
