@@ -1,8 +1,8 @@
 Package: phaselag
 Type: Package
 Title: Calculate the phase lag between two variables
-Version: 0.1.2
-Date: 2018-11-13
+Version: 0.1.3
+Date: 2018-11-14
 Author: Maik Renner
 Maintainer: Maik Renner <mrenner@bgc-jena.mpg.de>
 Description: Calculate the phase lag between two time series in time units, 

@@ -1,6 +1,6 @@
 # R package phaselag
     
-This repository provides an implemenation in the R lprogramming language.  
+This repository provides an implemenation in the R programming language.  
     The package accompanies a scientific manuscript
     submitted to Hydrology and Earth System Sciences
     as Renner et al., 2018 "Estimating and understanding model bias

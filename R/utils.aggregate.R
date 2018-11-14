@@ -7,6 +7,7 @@
 
 #' @export meana
 #' @export meann
+#' @export anomean
 
 #' @version 0.1 2017-09-22 added weighted unbiased variance, weighted.var()
 
@@ -56,8 +57,15 @@ meann = function(x,nmin,...) {
 
 #' simple helper fun to calc an anomaly given the full data
 anomin = function(x, ...) x - min(x,...)
-anomean = function(x, ...) x - mean(x,...)
 
+anomean = function(x, ...) {
+ #'  Simple helper fun to calc an anomaly given the full data
+ #'  
+ #'  @param x numeric vector
+ #'  @param ... further arguments passed to mean(x, ...) such as na.rm=TRUE
+ #'  @return numeric vector of anomalies 
+  x - mean(x,...)
+}
 
 
 summaryfun_nmin = function(x,nmin,FUN = mean,...) {
