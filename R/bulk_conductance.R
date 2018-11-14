@@ -1,15 +1,12 @@
 #' Calculate different bulk conductance estimates
 
 #' @filename bulk_conductance.R
-#' 
-#' @export aerodynamic_conductance_ustaru
-#' @export aerodynamic_conductance_Hinvert
-#' @export LatentHeatFlux_PenmanMonteith
-#' @export LatentHeatFlux_PenmanMonteith_gsinvert
-#' @export aerodynamic_conductance_withcanopy_Thom1975
+#' @version 0.1.3 add functions to export to namespace 
 
+#' @export aerodynamic_conductance_withcanopy_Thom1975 aerodynamic_conductance_BM2013 aerodynamic_conductance_ustaru aerodynamic_conductance_Hinvert LatentHeatFlux_PenmanMonteith LatentHeatFlux_PenmanMonteith_gsinvert
+#'
 
-##### aerodynamic and surface conductance
+            
 aerodynamic_conductance_BM2013 = function(ustar, u, karman = 0.4, Sc = 1, Pr = 1) {
   #' Calculate the aerodynamic conductance for heat from wind speed and friction velocity
   #' 
@@ -54,6 +51,7 @@ aerodynamic_conductance_ustaru = function(ustar, u) {
   ustar^2/u
 }
 
+
 aerodynamic_conductance_Hinvert = function(H, Ts, Ta, rho = 1.2, cp = 1004) {
   #' Estimate of the aerodynamic conductance for heat by inverting the bulk conductance formula for sensible heat
   #' 
@@ -84,6 +82,7 @@ LatentHeatFlux_PenmanMonteith = function(AE, s, esurf, eair, ga, gs, rho = 1.2, 
 #' @seealso [aerodynamic_conductance_withcanopy_Thom1975()] ga needs a leaf boundary layer conductance (also known as excess resistance) 
 
 (s * AE + rho * cp * ga  * (esurf - eair) ) / ( s + psychro* (1 + ga/gs) )
+
 }
 
 LatentHeatFlux_PenmanMonteith_gsinvert = function(AE, s, esurf, eair, ga, LE, rho = 1.2, cp = 1004, psychro = 0.65) {

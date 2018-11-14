@@ -16,7 +16,7 @@
 #' @version 0.01 20180704 start collection of functions from paper code
 #' @version 0.02 20180730 provide an artificial example with predefined phase lag to illustrate / test method
 #' @version 0.03 20180808 new camuffo_phaselag_time() full function to compute the phase lag between variable Y and X + dX in minutes plus statistics in a wide format
-#' @author mrenner@bgc-jena.mpg.de
+#' @author Maik Renner mrenner@bgc-jena.mpg.de
 
 #' @export phaselag_time
 #' @export camuffo_phaselag_time
