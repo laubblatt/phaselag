@@ -134,49 +134,49 @@ camuffo_phaselag_time = function(Y,X,dX, ...) {
 }
 
 
-#' @examples
-## Artificial example with solar radiation and timesteps in minutes as unit
-library(phaselag)
-library(data.table)
-
-# Set number of time steps per period (day)
-nday = 24
-#' set time unit minutes
- timeunitperday = 24 * 60
-dt = data.table(time = seq(0.5,timeunitperday, by = timeunitperday/nday))
-dt[ , Date := as.IDate("2007-07-07")]
-dt[ , ptime := time * 2* pi / timeunitperday]
-dt[ , ptimecos := cos(ptime  - pi) ]
-dt[ , Rsd := ifelse(ptimecos<0,0,800 * ptimecos)]
-dt
-plot(Rsd ~ time, data = dt)
-# create a second time series without a time lag 
-dt[ , LEnolag :=  Rsd/2 + 30 * rnorm(1) , by = time ]
-# create another series which has a lag of one hour
-(lagLE = 60 *  2 * pi / timeunitperday)
-dt[ , ptimecos_lag1h := cos(ptime  - pi - lagLE)  ]
-dt[ , LElag1h :=  ifelse(ptimecos_lag1h<0,0, 400 * ptimecos_lag1h ) + 30 * rnorm(1)  , by = time ]
-lines(LEnolag ~ time, data = dt, col = 3)
-lines(LElag1h ~ time, data = dt, col = 4)
-
-## Hysteresis loops appear when plotted against Reference 
-plot(LEnolag ~ Rsd, data = dt, col = 3, type = "b")
-lines(LElag1h ~ Rsd, data = dt, col = 4, type = "b", pch = 0)
-
-#### do regression and estimate time lags 
-# first estimate the time derivative of the reference series  
-dt[ ,dRsd := c(NA, diff(Rsd))]
-colnames(dt)
-str(dt)
-# then call the estimation of the phase lags 
-dt[ , camuffo_phaselag_time(Y = LElag1h, X = Rsd, dX = dRsd, nday = nday, timeunitperday = timeunitperday)]
-dt[ , camuffo_phaselag_time(Y = LEnolag, X = Rsd, dX = rep(NA,24), dt = .SD, nday = nday, timeunitperday = timeunitperday)]
-#
-
-##(camuffo_nolag =  dt[ , as.list(coef(lm(LEnolag ~ Rsd + dRsd))), by = Date])
-#(camuffo_lag1h =  dt[ , as.list(coef(lm(LElag1h ~ Rsd + dRsd))), by = Date])
-### compute the phase lag in time units (here time)
-phaselag_time(slope1 = camuffo_nolag[ ,Rsd], slope2 = camuffo_nolag[ , dRsd], nday = nday, timeunitperday = timeunitperday)
-#phaselag_time(slope1 = camuffo_lag1h[ ,Rsd], slope2 = camuffo_lag1h[ , dRsd], nday = nday, timeunitperday = timeunitperday)
-#mlm.output.statlong(lm(dt$LEnolag ~ dt$Rsd + dt$dRsd))
-#dt
+#' #' @examples
+#' ## Artificial example with solar radiation and timesteps in minutes as unit
+#' library(phaselag)
+#' library(data.table)
+#' 
+#' # Set number of time steps per period (day)
+#' nday = 24
+#' #' set time unit minutes
+#'  timeunitperday = 24 * 60
+#' dt = data.table(time = seq(0.5,timeunitperday, by = timeunitperday/nday))
+#' dt[ , Date := as.IDate("2007-07-07")]
+#' dt[ , ptime := time * 2* pi / timeunitperday]
+#' dt[ , ptimecos := cos(ptime  - pi) ]
+#' dt[ , Rsd := ifelse(ptimecos<0,0,800 * ptimecos)]
+#' dt
+#' plot(Rsd ~ time, data = dt)
+#' # create a second time series without a time lag 
+#' dt[ , LEnolag :=  Rsd/2 + 30 * rnorm(1) , by = time ]
+#' # create another series which has a lag of one hour
+#' (lagLE = 60 *  2 * pi / timeunitperday)
+#' dt[ , ptimecos_lag1h := cos(ptime  - pi - lagLE)  ]
+#' dt[ , LElag1h :=  ifelse(ptimecos_lag1h<0,0, 400 * ptimecos_lag1h ) + 30 * rnorm(1)  , by = time ]
+#' lines(LEnolag ~ time, data = dt, col = 3)
+#' lines(LElag1h ~ time, data = dt, col = 4)
+#' 
+#' ## Hysteresis loops appear when plotted against Reference 
+#' plot(LEnolag ~ Rsd, data = dt, col = 3, type = "b")
+#' lines(LElag1h ~ Rsd, data = dt, col = 4, type = "b", pch = 0)
+#' 
+#' #### do regression and estimate time lags 
+#' # first estimate the time derivative of the reference series  
+#' dt[ ,dRsd := c(NA, diff(Rsd))]
+#' colnames(dt)
+#' str(dt)
+#' # then call the estimation of the phase lags 
+#' dt[ , camuffo_phaselag_time(Y = LElag1h, X = Rsd, dX = dRsd, nday = nday, timeunitperday = timeunitperday)]
+#' dt[ , camuffo_phaselag_time(Y = LEnolag, X = Rsd, dX = rep(NA,24), dt = .SD, nday = nday, timeunitperday = timeunitperday)]
+#' #
+#' 
+#' ##(camuffo_nolag =  dt[ , as.list(coef(lm(LEnolag ~ Rsd + dRsd))), by = Date])
+#' #(camuffo_lag1h =  dt[ , as.list(coef(lm(LElag1h ~ Rsd + dRsd))), by = Date])
+#' ### compute the phase lag in time units (here time)
+#' phaselag_time(slope1 = camuffo_nolag[ ,Rsd], slope2 = camuffo_nolag[ , dRsd], nday = nday, timeunitperday = timeunitperday)
+#' #phaselag_time(slope1 = camuffo_lag1h[ ,Rsd], slope2 = camuffo_lag1h[ , dRsd], nday = nday, timeunitperday = timeunitperday)
+#' #mlm.output.statlong(lm(dt$LEnolag ~ dt$Rsd + dt$dRsd))
+#' #dt

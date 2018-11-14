@@ -59,11 +59,12 @@ meann = function(x,nmin,...) {
 anomin = function(x, ...) x - min(x,...)
 
 anomean = function(x, ...) {
- #'  Simple helper fun to calc an anomaly given the full data
+ #' Calc an anomaly given the full data
  #'  
- #'  @param x numeric vector
- #'  @param ... further arguments passed to mean(x, ...) such as na.rm=TRUE
- #'  @return numeric vector of anomalies 
+ #' Simple helper fun
+ #' @param x numeric vector
+ #' @param ... further arguments passed to mean(x, ...) such as na.rm=TRUE
+ #' @return numeric vector of anomalies 
   x - mean(x,...)
 }
 
