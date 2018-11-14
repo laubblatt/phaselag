@@ -4,6 +4,7 @@
 #' @version 1.00 2018-09-21 copies functions mlm.output.statlong() and mlm.output.statlong.call() from data.table.regression.fun.R
 #' @version 1.01 2018-09-21 improve documentation
 
+#' @import data.table
 #' @export mlm.output.statlong
 #' @export mlm.output.statlong.call
 

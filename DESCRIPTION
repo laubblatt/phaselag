@@ -17,5 +17,5 @@ Description: Calculate the phase lag between two time series in time units,
     as well as simple meteorological functions.
 License: GPL (>= 2) 
 RoxygenNote: 6.1.0
-Imports:
-    data.table
+Imports: data.table
+Depends: data.table

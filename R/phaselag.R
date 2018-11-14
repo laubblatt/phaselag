@@ -18,6 +18,7 @@
 #' @version 0.03 20180808 new camuffo_phaselag_time() full function to compute the phase lag between variable Y and X + dX in minutes plus statistics in a wide format
 #' @author Maik Renner mrenner@bgc-jena.mpg.de
 
+#' @import data.table
 #' @export phaselag_time
 #' @export camuffo_phaselag_time
 
