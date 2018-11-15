@@ -24,5 +24,5 @@ aerodynamic conductance in m/s
 Estimate of the aerodynamic conductance for heat by inverting the bulk conductance formula for sensible heat
 }
 \author{
-Maik Renner, mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

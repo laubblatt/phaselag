@@ -17,6 +17,3 @@ aerodynamic conductance in m/s
 \description{
 Estimate of the aerodynamic conductance for momentum from wind speed and friction velocity
 }
-\author{
-Maik Renner, mrenner@bgc-jena.mpg.de
-}

@@ -33,5 +33,7 @@ polygon(xp, yp, border = 3, col = makeTransparent("green", alpha = 80) )
 <https://stackoverflow.com/questions/8047668/transparent-equivalent-of-given-color>
 }
 \author{
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
+
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

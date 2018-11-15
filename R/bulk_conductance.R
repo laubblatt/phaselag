@@ -2,6 +2,7 @@
 
 #' @filename bulk_conductance.R
 #' @version 0.1.3 add functions to export to namespace 
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
 
 #' @export aerodynamic_conductance_withcanopy_Thom1975 aerodynamic_conductance_BM2013 aerodynamic_conductance_ustaru aerodynamic_conductance_Hinvert LatentHeatFlux_PenmanMonteith LatentHeatFlux_PenmanMonteith_gsinvert
 #'
@@ -22,7 +23,7 @@ aerodynamic_conductance_BM2013 = function(ustar, u, karman = 0.4, Sc = 1, Pr = 1
   #' @param Sc Schmidt number 
   #' @param Pr Prandtl number 
   #' @return aerodynamic conductance in m/s
-  #' @author Maik Renner, mrenner@bgc-jena.mpg.de
+  #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
   ga_BM13 =  ( (u / ustar^2) + (2/ karman * ustar^2) * (Sc/Pr)^(2/3) )^-1
   return(ga_BM13)
 }
@@ -36,7 +37,8 @@ aerodynamic_conductance_withcanopy_Thom1975 = function(ustar, u) {
   #' @param ustar friction velocity in m/s
   #' @param u horizontal wind speed in m/s
   #' @return aerodynamic conductance in m/s
-  #' @author Maik Renner, mrenner@bgc-jena.mpg.de
+  #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
+  
   
     ga =  ( (u / ustar^2) +  (6.2 * ustar^(-2/3)) )^-1
     return(ga)
@@ -47,7 +49,7 @@ aerodynamic_conductance_ustaru = function(ustar, u) {
   #' @param ustar friction velocity in m/s
   #' @param u horizontal wind speed in m/s
   #' @return aerodynamic conductance in m/s
-  #' @author Maik Renner, mrenner@bgc-jena.mpg.de
+
   ustar^2/u
 }
 
@@ -61,7 +63,8 @@ aerodynamic_conductance_Hinvert = function(H, Ts, Ta, rho = 1.2, cp = 1004) {
   #' @param rho density of air in kg m-3
   #' @param cp specific heat of air at constant pressure in J kg-1 K-1  
   #' @return aerodynamic conductance in m/s
-  #' @author Maik Renner, mrenner@bgc-jena.mpg.de
+  #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
+  
   H / (rho * cp * (Ts - Ta))
 }
 
@@ -78,7 +81,8 @@ LatentHeatFlux_PenmanMonteith = function(AE, s, esurf, eair, ga, gs, rho = 1.2, 
 #' @param cp heat capacity of air J/(kg K)
 #' @param psychro psychrometric constant hPa/K
 #' @return Latent Heat flux in W/m2
-#' @author Maik Renner, mrenner@bgc-jena.mpg.de
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
+  
 #' @seealso [aerodynamic_conductance_withcanopy_Thom1975()] ga needs a leaf boundary layer conductance (also known as excess resistance) 
 
 (s * AE + rho * cp * ga  * (esurf - eair) ) / ( s + psychro* (1 + ga/gs) )
@@ -98,7 +102,7 @@ LatentHeatFlux_PenmanMonteith_gsinvert = function(AE, s, esurf, eair, ga, LE, rh
   #' @param cp heat capacity of air J/(kg K)
   #' @param psychro psychrometric constant hPa/K
   #' @return gs surface / or stomatal conductance for water vapor in m/s 
-  #' @author Maik Renner, mrenner@bgc-jena.mpg.de
+  #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
   #' @seealso [aerodynamic_conductance_withcanopy_Thom1975()] ga needs a leaf boundary layer conductance (also known as excess resistance) 
   gs = (LE*psychro*ga/((s*AE) - (LE*(s + psychro)) + (ga*rho*cp*(esurf - eair))))
 }

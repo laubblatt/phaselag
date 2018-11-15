@@ -13,7 +13,7 @@ meana(x, na.percentage = 0.5, FUN = mean)
 collection of specific useful summary functions
 }
 \author{
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

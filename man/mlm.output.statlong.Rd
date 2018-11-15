@@ -25,5 +25,5 @@ DT = as.data.table(mtcars)
 DT[, mlm.output.statlong(lm(formula = "mpg ~ drat + gear", .SD) ), by = list(am) ]
 }
 \author{
-Maik Renner, mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

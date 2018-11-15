@@ -1,7 +1,7 @@
 #' Calculate meteorological variables related to water vapor
 
 #' @filename meteo_vapor.R
-#' @author Maik Renner mrenner@bgc-jena.mpg.de
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
 #' @export Magnus_Alduchov1996Improved
 #' @export Magnus_Alduchov1996Improved_slope_sat
 

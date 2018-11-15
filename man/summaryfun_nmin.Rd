@@ -11,5 +11,5 @@ needed if missing data is missing :)
 add non-missing data lower nmin @20141208
 }
 \author{
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

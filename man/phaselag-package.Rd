@@ -31,6 +31,6 @@ please cite the following paper when using this code:
 Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., \url{https://doi.org/10.5194/hess-2018-310}, in review, 2018.
 }
 \author{
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }
 \keyword{internal}

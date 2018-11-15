@@ -36,5 +36,5 @@ Calculate the surface conductance by inverting the Penman-Monteith formulation
 [aerodynamic_conductance_withcanopy_Thom1975()] ga needs a leaf boundary layer conductance (also known as excess resistance)
 }
 \author{
-Maik Renner, mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

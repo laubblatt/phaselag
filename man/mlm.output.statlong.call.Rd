@@ -28,5 +28,5 @@ DT[, mlm.output.statlong.call(mula = "mpg ~ drat + gear + bogus", data = .SD) , 
 DT[, mlm.output.statlong.call(mula = "mpg ~ drat + gear", data = .SD, weight = cyl) , by = list(am) ]
 }
 \author{
-Maik Renner, mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

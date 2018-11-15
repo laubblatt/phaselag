@@ -25,5 +25,7 @@ aerodynamic conductance in m/s
 Calculate different bulk conductance estimates
 }
 \author{
-Maik Renner, mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
+
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

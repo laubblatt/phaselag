@@ -19,5 +19,5 @@ Combined aerodynamic conductance after Thom 1975 taken from De Kauwe 2017 BG , e
 first term is the turbulent aerodynamic resistance the second term is the canopy boundary layer component
 }
 \author{
-Maik Renner, mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

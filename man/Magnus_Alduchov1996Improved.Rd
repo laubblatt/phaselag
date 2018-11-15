@@ -33,5 +33,5 @@ see discussion by Koutsoyannis 2012 on the derivation
 [Magnus_Alduchov1996Improved_slope_sat]
 }
 \author{
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner, mrenner [at] bgc-jena.mpg.de
 }

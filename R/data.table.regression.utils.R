@@ -1,6 +1,8 @@
 #' functions which aid cross variable linear regressions for use with data.table
+#' 
 #' @filename data.table.regression.utils.R
-#' @author Maik Renner mrenner@bgc-jena.mpg.de
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
+
 #' @version 1.00 2018-09-21 copies functions mlm.output.statlong() and mlm.output.statlong.call() from data.table.regression.fun.R
 #' @version 1.01 2018-09-21 improve documentation
 
@@ -16,7 +18,7 @@ mlm.output.statlong = function(fit) {
 #' simple function which takes a lm model output to create a named vector intended for use with data.table and group by
 #' @param fit object returned from a linear model function lm() and quantreg::rq() are supported
 #' @return a data.table with columns statistic and value
-#' @author Maik Renner, mrenner@bgc-jena.mpg.de
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
 #' @examples
 #' # output of regression model is melted to two columns
 #' data(mtcars)
@@ -131,7 +133,7 @@ mlm.output.statlong.call = function(mula, data, ...) {
 #' @param mula a formula for a lm() regression provided as character using the column names of the data
 #' @param data the data table with the column names
 #' @param ... additional arguments to call lm() such as weights and other lm arguments 
-#' @author Maik Renner, mrenner@bgc-jena.mpg.de
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
 #' @return a data.table with columns statistic and value
 #' @examples
 #' DT = as.data.table(mtcars)

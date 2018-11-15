@@ -1,4 +1,7 @@
 # R package phaselag
+
+**_By Maik Renner, Max-Planck Institute for Biogeochemistry, Jena, Germany_**
+> 2018-11-15
     
 This repository provides an implemenation in the R programming language.  
     The package accompanies a scientific manuscript
@@ -11,7 +14,8 @@ This repository provides an implemenation in the R programming language.
     analysis.
     The package also contains some statistical utilities 
     as well as simple meteorological functions.
-    
+
+## Instructions    
 ### To install the R package use:
 ```R
 library(devtools)

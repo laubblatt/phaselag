@@ -30,5 +30,5 @@ meann(x,3,na.rm=TRUE)
 sum(!is.na(x))
 }
 \author{
-Maik Renner mrenner@bgc-jena.mpg.de
+Maik Renner mrenner [at] bgc-jena.mpg.de
 }
