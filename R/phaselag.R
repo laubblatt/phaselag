@@ -51,6 +51,7 @@ phaselag_time = function(slope1, slope2, nday, timeunitperday) {
 #' @param nday Number of measurements per day.
 #' @param timeunitperday Number of timesteps per day.
 #' @return phase lag in time units between two variables.
+#' @author Maik Renner, mrenner [at] bgc-jena.mpg.de, Luigi Conte contributed the harmonic analysis
 #' @seealso camuffo_phaselag_time
 #' @references please cite the following paper when using this code
  # Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., https://doi.org/10.5194/hess-2018-310, in review, 2018.
