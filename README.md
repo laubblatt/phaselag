@@ -11,7 +11,7 @@ This repository provides an implemenation in the R programming language.
     a case study in Luxembourg" available at https://www.hydrol-earth-syst-sci-discuss.net/hess-2018-310/ .
     Main functionality is to calculate the phase lag between two time series in time units, 
     extending the Camuffo-Bernardi (1980) regression model with a harmonic
-    analysis.
+    analysis. The harmonic analysis was contributed by Luigi Conte.
     The package also contains some statistical utilities 
     as well as simple meteorological functions.
 
