@@ -5,8 +5,11 @@
 
 #' @version 1.00 2018-09-21 copies functions mlm.output.statlong() and mlm.output.statlong.call() from data.table.regression.fun.R
 #' @version 1.01 2018-09-21 improve documentation
+#' @version 1.10 2018-12-14 BUG fix for R1 -- update all previous results with quantile regression ! 
+#' @version 1.11 2018-12-14 add a function which rolls up summary objects as nested lists mrq.output.sufi()
 
 #' @import data.table
+#' @import quantreg 
 #' @export mlm.output.statlong
 #' @export mlm.output.statlong.call
 
@@ -222,6 +225,198 @@ mlm.output.statlong.call.rq = function(mula, data, ...) {
 # DT[, mlm.output.statlong.call(mula = "mpg ~ drat + gear", data = .SD, weight = cyl) , by = list(am) ]
 
 
+#' mrq.output.statlong = function(fit) {
+#'   #' Reorganize the output of a quantile regression fit into a statistic | value format 
+#'   #' 
+#'   #' simple function which takes a lm model output to create a named vector intended for use with data.table and group by
+#'   #' @param fit object returned from a linear model quantreg::rq() are supported
+#'   #' @return a data.table with columns statistic and value
+#'   #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
+#'   #' @examples
+#'   #' # output of regression model is melted to two columns
+#'   #' library(quantreg)
+#'   #' data(engel)
+#'   #' fit = rq(foodexp~income,tau=0.9,data=engel)
+#'   #' mrq.output.statlong(fit)
+#' 
+#'   #' @version 0.01 2018-12-04 based on mlm.output.statlong()  
+#'   #'                removing the R2 and adding the pseudo R1 
+#'   #' 
+#'   #' 
+#'   
+#'   if (! is.null(fit) ) {
+#'     if (inherits(try(sufi <- summary(fit) ),"try-error")) {
+#'       sufic = fit$coefficients
+#'       coefnames = names(sufic)
+#'       (out = as.numeric(t(sufic)))
+#'       if (coefnames[1] == "(Intercept)")
+#'         (coefnames = c("intercept", paste0("slope",1:(length(out)-1))) )
+#'       
+#'       names(out) = coefnames
+#'       
+#'     } else {
+#'       
+#'       # sufi = summary(fit)
+#'       sufic = sufi$coefficients
+#'       out = as.numeric(t(sufic))
+#'       
+#'       intercept = attr(sufi$terms,"intercept")
+#'       
+#'       ## we may want keep forcing through origin, hence no intercept @version 2018-11-29 uncommented 
+#'       # if (nrow(sufic)<2) {
+#'       #  dt = data.table(variable = NA_character_, value = NA_real_)
+#'       #  } else 
+#'       
+#'       ## quantreg can only give a Named num for coefficients @version 2018-11-29
+#'       if (! is.null(ncol(sufic) ) ) { 
+#'         
+#'         if (ncol(sufic) == 4 & intercept == 1){
+#'           # now checking if indeed the t-test is reported
+#'           intnames = c("intercept", "intercept_sd" ,"intercept_ttest", "intercept_pvalue")
+#'           nvars = 1 :(nrow(sufic)-1)
+#'           # nvars = 1:2
+#'           slopenames = c()
+#'           for (nvar in nvars) {
+#'             slopenames = c(slopenames,  paste0("slope",nvar),
+#'                            paste0("slope",nvar,"_sd"),
+#'                            paste0("slope",nvar,"_ttest"),
+#'                            paste0("slope",nvar,"_pvalue"))
+#'           }
+#'         } else if (ncol(sufic) == 4 & intercept == 0){
+#'           intnames = c()
+#'           nvars = 1 :(nrow(sufic))
+#'           # nvars = 1:2
+#'           slopenames = c()
+#'           for (nvar in nvars) {
+#'             slopenames = c(slopenames,  paste0("slope",nvar),
+#'                            paste0("slope",nvar,"_sd"),
+#'                            paste0("slope",nvar,"_ttest"),
+#'                            paste0("slope",nvar,"_pvalue"))
+#'           }
+#'         } else {
+#'           # now for the case of quantreg rq which reports upper and lower bounds
+#'           cna = colnames(sufic)
+#'           cna = sub(pattern = " ", replacement = "", cna)
+#'           cnaend = cna[2:ncol(sufic)]
+#'           (intnames = c("intercept", paste0("intercept_", cnaend)))
+#'           nvars = 1 :(nrow(sufic)-1)
+#'           slopenames = c()
+#'           for (nvar in nvars) {
+#'             slopenames = c(slopenames,  paste0("slope",nvar),
+#'                            sapply(cnaend, function(cn) paste0("slope",nvar,"_",cn)) )
+#'           }
+#'           # slopenames
+#'         }
+#'       } else { # capturing the case of coeficients as a named numeric @version 2018-11-29
+#'         intnames = c()
+#'         slopenames =  paste0("slope",(1:length(sufic)) )
+#'       }
+#'       # slopenames
+#'       ## @20160713 error in regression
+#'       #  names(out) = c(intnames, slopenames)
+#'       # Error in names(out) = c(intnames, slopenames) :
+#'       #   'names' attribute [12] must be the same length as the vector [4]
+#'       
+#'       if (inherits(try(names(out) <- c(intnames, slopenames)),"try-error")) {
+#'         print(paste("ERROR: names of summary object do not match",out, intnames, slopenames))
+#'         print(sufic)
+#'         #     next
+#'       }
+#'       out = c(out, n = length(residuals(fit)))
+#'     }
+#'     #The pseudo-R^2 measure suggested by Koenker and Machado's 1999 JASA paper
+#'     # measures goodness of fit by comparing the sum of weighted deviations
+#'     # for the model of interest with the same sum from a model in which only the intercept appears.
+#'     
+#'     R1 = 1 - fit$rho / rq(fit$y ~ 1)$rho
+#'     out = c(out,R1 = R1 )
+#'     
+#'     dt = data.table(statistic = names(out), value = as.numeric(out))
+#'     return(dt)
+#'   }
+#' }
+
+
+mrq.output.sufi = function(sufi) { 
+  # sufi = summary(fit)
+  sufic = sufi$coefficients
+  out = as.numeric(t(sufic))
+  
+  intercept = attr(sufi$terms,"intercept")
+  
+  ## we may want keep forcing through origin, hence no intercept @version 2018-11-29 uncommented 
+  # if (nrow(sufic)<2) {
+  #  dt = data.table(variable = NA_character_, value = NA_real_)
+  #  } else 
+  
+  ## quantreg can only give a Named num for coefficients @version 2018-11-29
+  if (! is.null(ncol(sufic) ) ) { 
+    
+    if (ncol(sufic) == 4 & intercept == 1){
+      # now checking if indeed the t-test is reported
+      intnames = c("intercept", "intercept_sd" ,"intercept_ttest", "intercept_pvalue")
+      nvars = 1 :(nrow(sufic)-1)
+      # nvars = 1:2
+      slopenames = c()
+      for (nvar in nvars) {
+        slopenames = c(slopenames,  paste0("slope",nvar),
+                       paste0("slope",nvar,"_sd"),
+                       paste0("slope",nvar,"_ttest"),
+                       paste0("slope",nvar,"_pvalue"))
+      }
+    } else if (ncol(sufic) == 4 & intercept == 0){
+      intnames = c()
+      nvars = 1 :(nrow(sufic))
+      # nvars = 1:2
+      slopenames = c()
+      for (nvar in nvars) {
+        slopenames = c(slopenames,  paste0("slope",nvar),
+                       paste0("slope",nvar,"_sd"),
+                       paste0("slope",nvar,"_ttest"),
+                       paste0("slope",nvar,"_pvalue"))
+      }
+    } else {
+      # now for the case of quantreg rq which reports upper and lower bounds
+      cna = colnames(sufic)
+      cna = sub(pattern = " ", replacement = "", cna)
+      cnaend = cna[2:ncol(sufic)]
+      (intnames = c("intercept", paste0("intercept_", cnaend)))
+      nvars = 1 :(nrow(sufic)-1)
+      slopenames = c()
+      for (nvar in nvars) {
+        slopenames = c(slopenames,  paste0("slope",nvar),
+                       sapply(cnaend, function(cn) paste0("slope",nvar,"_",cn)) )
+      }
+      # slopenames
+    }
+  } else { # capturing the case of coeficients as a named numeric @version 2018-11-29
+    intnames = c()
+    slopenames =  paste0("slope",(1:length(sufic)) )
+  }
+  # slopenames
+  ## @20160713 error in regression
+  #  names(out) = c(intnames, slopenames)
+  # Error in names(out) = c(intnames, slopenames) :
+  #   'names' attribute [12] must be the same length as the vector [4]
+  
+  if (inherits(try(names(out) <- c(intnames, slopenames)),"try-error")) {
+    print(paste("ERROR: names of summary object do not match",out, intnames, slopenames))
+    print(sufic)
+    #     next
+  }
+  out = c(out, n = length(sufi$residuals))
+}
+
+  #The pseudo-R^2 measure suggested by Koenker and Machado's 1999 JASA paper
+  # measures goodness of fit by comparing the sum of weighted deviations
+  # for the model of interest with the same sum from a model in which only the intercept appears.
+  
+  #R1 = 1 - fit$rho / rq(fit$y ~ 1)$rho
+  #out = c(out,R1 = R1 )
+#   return(out)
+# }
+
+
 mrq.output.statlong = function(fit) {
   #' Reorganize the output of a quantile regression fit into a statistic | value format 
   #' 
@@ -235,10 +430,11 @@ mrq.output.statlong = function(fit) {
   #' data(engel)
   #' fit = rq(foodexp~income,tau=0.9,data=engel)
   #' mrq.output.statlong(fit)
-
   #' @version 0.01 2018-12-04 based on mlm.output.statlong()  
   #'                removing the R2 and adding the pseudo R1 
-  #' 
+  #' @version 0.10 2018-12-14 BUG fix for R1 -- update all previous results ! 
+  #' @version 0.11 2018-12-14 add a function which rolls up summary objects as nested lists mrq.output.sufi()
+  #'  
   #' 
   
   if (! is.null(fit) ) {
@@ -253,82 +449,26 @@ mrq.output.statlong = function(fit) {
       
     } else {
       
-      # sufi = summary(fit)
-      sufic = sufi$coefficients
-      out = as.numeric(t(sufic))
-      
-      intercept = attr(sufi$terms,"intercept")
-      
-      ## we may want keep forcing through origin, hence no intercept @version 2018-11-29 uncommented 
-      # if (nrow(sufic)<2) {
-      #  dt = data.table(variable = NA_character_, value = NA_real_)
-      #  } else 
-      
-      ## quantreg can only give a Named num for coefficients @version 2018-11-29
-      if (! is.null(ncol(sufic) ) ) { 
-        
-        if (ncol(sufic) == 4 & intercept == 1){
-          # now checking if indeed the t-test is reported
-          intnames = c("intercept", "intercept_sd" ,"intercept_ttest", "intercept_pvalue")
-          nvars = 1 :(nrow(sufic)-1)
-          # nvars = 1:2
-          slopenames = c()
-          for (nvar in nvars) {
-            slopenames = c(slopenames,  paste0("slope",nvar),
-                           paste0("slope",nvar,"_sd"),
-                           paste0("slope",nvar,"_ttest"),
-                           paste0("slope",nvar,"_pvalue"))
-          }
-        } else if (ncol(sufic) == 4 & intercept == 0){
-          intnames = c()
-          nvars = 1 :(nrow(sufic))
-          # nvars = 1:2
-          slopenames = c()
-          for (nvar in nvars) {
-            slopenames = c(slopenames,  paste0("slope",nvar),
-                           paste0("slope",nvar,"_sd"),
-                           paste0("slope",nvar,"_ttest"),
-                           paste0("slope",nvar,"_pvalue"))
-          }
-        } else {
-          # now for the case of quantreg rq which reports upper and lower bounds
-          cna = colnames(sufic)
-          cna = sub(pattern = " ", replacement = "", cna)
-          cnaend = cna[2:ncol(sufic)]
-          (intnames = c("intercept", paste0("intercept_", cnaend)))
-          nvars = 1 :(nrow(sufic)-1)
-          slopenames = c()
-          for (nvar in nvars) {
-            slopenames = c(slopenames,  paste0("slope",nvar),
-                           sapply(cnaend, function(cn) paste0("slope",nvar,"_",cn)) )
-          }
-          # slopenames
-        }
-      } else { # capturing the case of coeficients as a named numeric @version 2018-11-29
-        intnames = c()
-        slopenames =  paste0("slope",(1:length(sufic)) )
+      # check for nested list which is provided when several tau are used in rq
+      if(  any(sapply(sufi, is.list)) ) { 
+      (sout = sapply(sufi,mrq.output.sufi) )
+      } else {
+        (sout = t(t(mrq.output.sufi(sufi))))
       }
-      # slopenames
-      ## @20160713 error in regression
-      #  names(out) = c(intnames, slopenames)
-      # Error in names(out) = c(intnames, slopenames) :
-      #   'names' attribute [12] must be the same length as the vector [4]
-      
-      if (inherits(try(names(out) <- c(intnames, slopenames)),"try-error")) {
-        print(paste("ERROR: names of summary object do not match",out, intnames, slopenames))
-        print(sufic)
-        #     next
+      #The pseudo-R^2 measure suggested by Koenker and Machado's 1999 JASA paper
+      # measures goodness of fit by comparing the sum of weighted deviations
+      # for the model of interest with the same sum from a model in which only the intercept appears.
+  
+      #' @update 2018-12-14 missed the tau in the intercept regression !!!
+      R1 = 1 - fit$rho / rq(fit$y ~ 1, tau = fit$tau)$rho
+      sout = rbind(sout,R1 )
+      dt = data.table()
+      for (ii in 1 : ncol(sout)) { 
+        dt = rbind(dt, data.table(tau = fit$tau[ii], statistic = rownames(sout), value = sout[,ii]) ) 
       }
-      out = c(out, n = length(residuals(fit)))
+      out = dt
     }
-    #The pseudo-R^2 measure suggested by Koenker and Machado's 1999 JASA paper
-    # measures goodness of fit by comparing the sum of weighted deviations
-    # for the model of interest with the same sum from a model in which only the intercept appears.
-    
-    R1 = 1 - fit$rho / rq(fit$y ~ 1)$rho
-    out = c(out,R1 = R1 )
-    
-    dt = data.table(statistic = names(out), value = as.numeric(out))
-    return(dt)
+    return(out)
   }
 }
+
