@@ -1,6 +1,7 @@
 #' functions which aid cross variable linear regressions for use with data.table
 #' 
 #' @filename data.table.regression.utils.R
+#' @host github/laubblatt/phaselag/R/
 #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
 
 #' @version 1.00 2018-09-21 copies functions mlm.output.statlong() and mlm.output.statlong.call() from data.table.regression.fun.R
@@ -182,7 +183,7 @@ mlm.output.statlong.call = function(mula, data, ...) {
 }
 
 
-mlm.output.statlong.call.rq = function(mula, data, ...) {
+mlm.output.statlong.call.rq = function(mula, data, se = "iid", ...) {
   #' Call a linear QUANTILE regression model and reorganize its output 
   #' 
   #' sucessfull error handling for errors on function calls when groups are empty
@@ -211,7 +212,7 @@ mlm.output.statlong.call.rq = function(mula, data, ...) {
   } else if (any(is.na(coef(ans)))) {
     data.table(statistic = NA_character_, value = NA_real_)
   } else {
-    mrq.output.statlong(ans)
+    mrq.output.statlong(ans, se)
   }
 }
 
@@ -417,7 +418,7 @@ mrq.output.sufi = function(sufi) {
 # }
 
 
-mrq.output.statlong = function(fit) {
+mrq.output.statlong = function(fit, se = "iid") {
   #' Reorganize the output of a quantile regression fit into a statistic | value format 
   #' 
   #' simple function which takes a lm model output to create a named vector intended for use with data.table and group by
@@ -434,11 +435,11 @@ mrq.output.statlong = function(fit) {
   #'                removing the R2 and adding the pseudo R1 
   #' @version 0.10 2018-12-14 BUG fix for R1 -- update all previous results ! 
   #' @version 0.11 2018-12-14 add a function which rolls up summary objects as nested lists mrq.output.sufi()
-  #'  
+  #' @version 0.11 2018-12-20 default of summary.rq calls se = "nid" which crashes base:backsolve, set default to se = "iid", see ?summary.rq   
   #' 
   
   if (! is.null(fit) ) {
-    if (inherits(try(sufi <- summary(fit) ),"try-error")) {
+    if (inherits(try(sufi <- summary(fit, se = se) ),"try-error")) {
       sufic = fit$coefficients
       coefnames = names(sufic)
       (out = as.numeric(t(sufic)))
