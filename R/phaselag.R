@@ -17,6 +17,7 @@
 #' @version 0.02 20180730 provide an artificial example with predefined phase lag to illustrate / test method
 #' @version 0.03 20180808 new camuffo_phaselag_time() full function to compute the phase lag between variable Y and X + dX in minutes plus statistics in a wide format
 #' @version 0.1.3 20181114 fixed camuffo_phaselag_time() with @import data.table 
+#' @version 0.1.4 20181221 bugfix in camuffo_phaselag_time()  error occured because slope1 and slope2 where not found 
 #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de
 
 #' @import data.table
@@ -113,14 +114,20 @@ camuffo_phaselag_time = function(Y,X,dX, ...) {
   
   # reg = mlm.output.statlong.call("Y ~ X + dX", dt)
   if (inherits(try(ans<-lm(Y ~ X + dX) ,silent = TRUE),"try-error")) {
-    reg = data.table(statistic = NA_character_, value = NA_real_)
+    # reg = data.table(statistic = NA_character_, value = NA_real_)
     regwide = data.table()
-  } else {
+   } else if (any(is.na(coef(ans)))) {
+     # @version 2018-12-21 bugfix  error occured because slope1 and slope2 where not found 
+     regwide = data.table()
+    # data.table(statistic = NA_character_, value = NA_real_)
+  } 
+  else {
     reg = mlm.output.statlong(ans)
     regwide = dcast.data.table(reg, ... ~ statistic)
     regwide[ , '.' := NULL]
-    # print(regwide)
-    regwide[ , phaselagtime := phaselag_time(slope1, slope2, ... )]
+    if (reg[ , "slope1" %in% statistic] ) { 
+        regwide[ , phaselagtime := phaselag_time(slope1, slope2, ... )]
+    }
     return(data.table(regwide))
   }
 }
