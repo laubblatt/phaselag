@@ -1,7 +1,7 @@
 # R package phaselag
 
 **_By Maik Renner, Max-Planck Institute for Biogeochemistry, Jena, Germany_**
-> 2018-11-15
+> 2019-01-15
     
 This repository provides an implemenation in the R programming language.  
     The package accompanies a scientific manuscript
@@ -14,6 +14,9 @@ This repository provides an implemenation in the R programming language.
     analysis. The harmonic analysis was contributed by Luigi Conte.
     The package also contains some statistical utilities 
     as well as simple meteorological functions.
+    
+Public release:    
+[![DOI](https://zenodo.org/badge/157406288.svg)](https://zenodo.org/badge/latestdoi/157406288)    
 
 ## Instructions    
 ### To install the R package use:
