@@ -16,7 +16,7 @@ This repository provides an implemenation in the R programming language.
     as well as simple meteorological functions.
     
 Public release:    
-[![DOI](https://zenodo.org/badge/157406288.svg)](https://zenodo.org/badge/latestdoi/157406288)    
+[![DOI](https://zenodo.org/badge/157406288.svg)](https://zenodo.org/record/2540535)    
 
 ## Instructions    
 ### To install the R package use:
