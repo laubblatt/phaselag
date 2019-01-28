@@ -25,7 +25,7 @@ This is based on a harmonic transformation of a multi-linear regression of
  the form
 Y = aX + b dX/dt + c
 proposed by Camuffo and Bernardi (1982).
-Renner et al., 2018 adapted their version to calculate the time difference
+Renner et al., 2019 adapted their version to calculate the time difference
 using the coefficients a and b determined by linear regression.
 }
 \details{
@@ -64,7 +64,7 @@ lines(LElag1h ~ Rsd, data = dt, col = 4, type = "b", pch = 0)
 }
 \references{
 please cite the following paper when using this code
-Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., https://doi.org/10.5194/hess-2018-310, in review, 2018.
+Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535, https://doi.org/10.5194/hess-23-515-2019, 2019.
 }
 \seealso{
 [phaselag_time()] for the core function

@@ -10,10 +10,11 @@ Calculate the phase lag between two time series in time units,
 extending the Camuffo-Bernardi (1980) regression model with a harmonic
 analysis.
 The functions accompany a scientific manuscript
-submitted to Hydrology and Earth System Sciences
-as Renner et al., 2018 "Estimating and understanding model bias 
-in simulating the diurnal cycle of evapotranspiration:
-a case study in Luxembourg.
+published in the Journal Hydrology and Earth System Sciences
+as Renner et al., 2019 "Using phase lags to evaluate model biases
+ in simulating the diurnal cycle of evapotranspiration:
+  a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535,
+   https://doi.org/10.5194/hess-23-515-2019, 2019.
 It also contains some statistical utilities 
 as well as simple meteorological functions.
 }
@@ -28,7 +29,7 @@ Meteorological relationshipts based on a bulk type representations are
 \references{
 please cite the following paper when using this code:
 
-Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., \url{https://doi.org/10.5194/hess-2018-310}, in review, 2018.
+Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535, \url{https://doi.org/10.5194/hess-23-515-2019}, 2019.
 }
 \author{
 Maik Renner, mrenner [at] bgc-jena.mpg.de

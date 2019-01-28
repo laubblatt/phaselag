@@ -23,7 +23,11 @@ Helper function which is called by camuffo_phaselag_time()
 }
 \references{
 please cite the following paper when using this code
+Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535, https://doi.org/10.5194/hess-23-515-2019, 2019.
 }
 \seealso{
 camuffo_phaselag_time
+}
+\author{
+Maik Renner, mrenner [at] bgc-jena.mpg.de, Luigi Conte contributed the harmonic analysis
 }

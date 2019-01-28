@@ -4,10 +4,11 @@
 #' extending the Camuffo-Bernardi (1980) regression model with a harmonic
 #' analysis.
 #' The functions accompany a scientific manuscript
-#' submitted to Hydrology and Earth System Sciences
-#' as Renner et al., 2018 "Estimating and understanding model bias 
-#' in simulating the diurnal cycle of evapotranspiration:
-#' a case study in Luxembourg.
+#' published in the Journal Hydrology and Earth System Sciences
+#' as Renner et al., 2019 "Using phase lags to evaluate model biases
+#'  in simulating the diurnal cycle of evapotranspiration:
+#'   a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535,
+#'    https://doi.org/10.5194/hess-23-515-2019, 2019.
 #' It also contains some statistical utilities 
 #' as well as simple meteorological functions.
 
@@ -26,7 +27,8 @@
 
 #' @references please cite the following paper when using this code:
 #' 
-#' Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., \url{https://doi.org/10.5194/hess-2018-310}, in review, 2018.
+#' Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535, \url{https://doi.org/10.5194/hess-23-515-2019}, 2019.
+#' 
 #' @details
 #' The main function to compute the phase lag in time units is [camuffo_phaselag_time()].
 #' Other important utilities are [mlm.output.statlong()] which reorganizes lm() objects
@@ -55,7 +57,8 @@ phaselag_time = function(slope1, slope2, nday, timeunitperday) {
 #' @author Maik Renner, mrenner [at] bgc-jena.mpg.de, Luigi Conte contributed the harmonic analysis
 #' @seealso camuffo_phaselag_time
 #' @references please cite the following paper when using this code
- # Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., https://doi.org/10.5194/hess-2018-310, in review, 2018.
+#' Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535, https://doi.org/10.5194/hess-23-515-2019, 2019.
+
 
  atan( (-slope2*2*pi/nday)/slope1) * (timeunitperday) / (2 *pi)
 }
@@ -68,7 +71,7 @@ camuffo_phaselag_time = function(Y,X,dX, ...) {
 #'  the form
 #' Y = aX + b dX/dt + c
 #' proposed by Camuffo and Bernardi (1982).
-#' Renner et al., 2018 adapted their version to calculate the time difference
+#' Renner et al., 2019 adapted their version to calculate the time difference
 #' using the coefficients a and b determined by linear regression.
 #'
 #' This function performs a multi-linear regression and then calls the function
@@ -82,7 +85,7 @@ camuffo_phaselag_time = function(Y,X,dX, ...) {
 #' @param ... Further arguments to phaselag_time, set nday and timeunitperday.
 #' @return Returns a data.table with columns statistic and value
 #' @references please cite the following paper when using this code
-#' Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Understanding model biases in the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci. Discuss., https://doi.org/10.5194/hess-2018-310, in review, 2018.
+#' Renner, M., Brenner, C., Mallick, K., Wizemann, H.-D., Conte, L., Trebs, I., Wei, J., Wulfmeyer, V., Schulz, K., and Kleidon, A.: Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg, Hydrol. Earth Syst. Sci., 23, 515-535, https://doi.org/10.5194/hess-23-515-2019, 2019.
 #' @seealso [phaselag_time()] for the core function
 #' @examples
 #' # example with 1h timesteps in minutes as unit
@@ -185,6 +188,5 @@ camuffo_phaselag_time = function(Y,X,dX, ...) {
 #' ### compute the phase lag in time units (here time)
 #' phaselag_time(slope1 = camuffo_nolag[ ,Rsd], slope2 = camuffo_nolag[ , dRsd], nday = nday, timeunitperday = timeunitperday)
 #' phaselag_time(slope1 = camuffo_lag1h[ ,Rsd], slope2 = camuffo_lag1h[ , dRsd], nday = nday, timeunitperday = timeunitperday)
-
 
 
