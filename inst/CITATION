@@ -10,7 +10,7 @@ bibentry(bibtype = "Manual",
          
 bibentry(bibtype = "Article",
          title = "{Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg}",
-         author = c(person("Maik", "Renner")
+         author = c(person("Maik", "Renner"),
           person("Claire", "Brenner"),
           person("Kaniska", "Mallick"),
           person("Hans-Dieter" ,"Wizemann"),
