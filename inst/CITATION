@@ -9,11 +9,11 @@ bibentry(bibtype = "Manual",
          url = "https://github.com/laubblatt/phaselag")
          
 bibentry(bibtype = "Article",
-         title = "{Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg}",
+         title = "Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg",
          author = c(person("Maik", "Renner"),
           person("Claire", "Brenner"),
           person("Kaniska", "Mallick"),
-          person("Hans-Dieter" ,"Wizemann"),
+          person("{Hans-Dieter}" ,"Wizemann"),
           person("Luigi", "Conte"),
           person("Ivonne", "Trebs"),
           person("Jianhui", "Wei"),
@@ -21,11 +21,11 @@ bibentry(bibtype = "Article",
           person("Karsten", "Schulz"),
           person("Axel", "Kleidon")
          ),
-         journal = "{Hydrology and Earth System Sciences}",
+         journal = "Hydrology and Earth System Sciences",
          volume = 23,
         number = 1,
-        pages = "{515--535}",
+        pages = "515--535",
          year = 2019,
-         url = "{https://www.hydrol-earth-syst-sci.net/23/515/2019/}",
-         doi = "{10.5194/hess-23-515-2019}")
+         url = "https://www.hydrol-earth-syst-sci.net/23/515/2019/",
+         doi = "10.5194/hess-23-515-2019")
          
