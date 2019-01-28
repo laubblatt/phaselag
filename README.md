@@ -4,11 +4,9 @@
 > 2019-01-15
     
 This repository provides an implemenation in the R programming language.  
-    The package accompanies a scientific manuscript
-    submitted to Hydrology and Earth System Sciences
-    as Renner et al., 2018 "Estimating and understanding model bias
-    in simulating the diurnal cycle of evapotranspiration:
-    a case study in Luxembourg" available at https://www.hydrol-earth-syst-sci-discuss.net/hess-2018-310/ .
+    The package accompanies the scientific manuscript
+    which is published in the Journal _Hydrology and Earth System Sciences_
+    as Renner et al., 2019 **_Using phase lags to evaluate model biases in simulating the diurnal cycle of evapotranspiration: a case study in Luxembourg_**, Hydrol. Earth Syst. Sci., 23, 515-535, https://doi.org/10.5194/hess-23-515-2019, 2019.  
     Main functionality is to calculate the phase lag between two time series in time units, 
     extending the Camuffo-Bernardi (1980) regression model with a harmonic
     analysis. The harmonic analysis was contributed by Luigi Conte.
