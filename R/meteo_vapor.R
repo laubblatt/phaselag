@@ -7,6 +7,8 @@
 
 #' @version 0.10 2018-09-19 adding the Alduchov and Eskridge (1996) parameters for the Magnus form
 #' @version 0.10 2018-09-19 adding an ice switch, be careful when vectorization is used for param ice
+#' @version 0.11 2020-09-28 bug fix in function Magnus_Alduchov1996Improved_slope_sat()
+
 # weitere Sättigungsdampfdruckformeln unter http://cires.colorado.edu/~voemel/vp.html
 
 Magnus_Alduchov1996Improved <- function(air_temp, c1 = 6.1094, c2 = 17.625, c3 = 243.04, ice = FALSE) {
@@ -47,12 +49,12 @@ Magnus_Alduchov1996Improved_slope_sat <- function(air_temp,  c2 = 17.625, c3 = 2
   #' @return slope of the saturation water vapor pressure curve hPa K-1.
   #' @seealso [Magnus_Alduchov1996Improved]
  
-  s_airtemp <- c2 * c3 * MAGNUS(air_temp) / (c3 + air_temp)^2
+  s_airtemp <- c2 * c3 * Magnus_Alduchov1996Improved(air_temp) / (c3 + air_temp)^2
   if (ice == TRUE) {
     c1 = 6.1121
     c2 = 22.587
     c3 = 273.86
-    s_airtemp[!is.na(air_temp) & air_temp < 0] <- c2 * c3 * MAGNUS(air_temp[!is.na(air_temp) & air_temp < 0]) / (c3 + air_temp[!is.na(air_temp) & air_temp < 0])^2
+    s_airtemp[!is.na(air_temp) & air_temp < 0] <- c2 * c3 * Magnus_Alduchov1996Improved(air_temp[!is.na(air_temp) & air_temp < 0]) / (c3 + air_temp[!is.na(air_temp) & air_temp < 0])^2
   }
   return(s_airtemp)
 }
